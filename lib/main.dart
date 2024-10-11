@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:contact_app/utils/routes.dart';
+import 'package:contact_app/pages/counter/provider/counter_provider.dart';
 
 void main() {
   runApp(
@@ -17,9 +19,16 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      routes: Routes.routes,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: CounterProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        routes: Routes.routes,
+      ),
     );
   }
 }
