@@ -18,6 +18,15 @@ class _HomePageState extends State<HomePage> {
         centerTitle: true,
         title: const Text('Contact App'),
       ),
+      body: const Center(
+        child: Text(
+          'Home Page',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         foregroundColor: Colors.white,
         backgroundColor: const Color(0xff384e78),
