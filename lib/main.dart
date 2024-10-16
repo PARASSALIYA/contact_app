@@ -1,3 +1,4 @@
+import 'package:contact_app/pages/contact/provier/contact_provier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:contact_app/utils/routes.dart';
@@ -23,6 +24,9 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider.value(
           value: CounterProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: ContactProvider(),
         ),
       ],
       child: MaterialApp(

@@ -1,6 +1,9 @@
 import 'dart:io';
+import 'package:contact_app/pages/contact/model/contact_model.dart';
+import 'package:contact_app/pages/contact/provier/contact_provier.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
@@ -164,7 +167,16 @@ class _ContactPageState extends State<ContactPage> {
                               String name = nameController.text;
                               String phone = phoneController.text;
                               String email = emailController.text;
-                              String? image = imagePath;
+                              String? image = imagePath.toString();
+                              ContactModel contact = ContactModel(
+                                name: name,
+                                phone: phone,
+                                email: email,
+                                image: image,
+                              );
+                              context
+                                  .read<ContactProvider>()
+                                  .addContact(contact);
 
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
@@ -173,6 +185,7 @@ class _ContactPageState extends State<ContactPage> {
                                   content: Text("Save Successfully..."),
                                 ),
                               );
+                              Navigator.pop(context);
                             },
                             child: const Text("Save"),
                           ),
