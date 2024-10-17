@@ -3,6 +3,25 @@ import 'package:flutter/material.dart';
 
 class ContactProvider with ChangeNotifier {
   List<ContactModel> contacts = [];
+  List<ContactModel> hideContacts = [];
+  int selectedIndex = 0;
+  String? imagePath;
+  void setSelectedIndex(int index) {
+    selectedIndex = index;
+    notifyListeners();
+  }
+
+  void hideContact(ContactModel model) {
+    hideContacts.add(model);
+    contacts.removeAt(selectedIndex);
+    notifyListeners();
+  }
+
+  void unHideContact(ContactModel model) {
+    hideContacts.remove(model);
+    contacts.insert(selectedIndex, model);
+    notifyListeners();
+  }
 
   void addContact(ContactModel contact) {
     contacts.add(contact);
@@ -14,7 +33,7 @@ class ContactProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void updateContact(int index, ContactModel model) {
-    contacts[index] = model;
+  void updateContact(ContactModel model) {
+    contacts[selectedIndex] = model;
   }
 }

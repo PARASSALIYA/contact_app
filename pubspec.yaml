@@ -40,6 +40,9 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   shared_preferences: ^2.3.2
   introduction_screen: ^3.1.14
+  flutter_slidable: ^3.1.1
+  url_launcher: ^6.3.1
+  alphabet_slider: ^1.0.4
 
 
 dev_dependencies:

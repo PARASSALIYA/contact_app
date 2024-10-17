@@ -1,54 +1,48 @@
 import 'dart:io';
-import 'package:alphabet_slider/alphabet_slider.dart';
+
 import 'package:contact_app/pages/contact/provier/contact_provier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HideContact extends StatefulWidget {
+  const HideContact({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HideContact> createState() => _HideContactState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HideContactState extends State<HideContact> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/hide');
-            },
-            icon: const Icon(Icons.lock),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-        ],
+        title: const Text("Hide Contact"),
+        centerTitle: true,
         backgroundColor: const Color(0xff384e78),
         foregroundColor: Colors.white,
-        leading: const Icon(Icons.menu),
-        centerTitle: true,
-        title: const Text('Contact App'),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.more_vert),
+          ),
+        ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(10),
         child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Expanded(
               child: ListView.builder(
-                itemCount: context.watch<ContactProvider>().contacts.length,
+                itemCount: context.watch<ContactProvider>().hideContacts.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     onTap: () {
                       context.read<ContactProvider>().setSelectedIndex(index);
 
                       Navigator.pushNamed(context, '/contactDetail',
-                          arguments:
-                              context.read<ContactProvider>().contacts[index]);
+                          arguments: context
+                              .read<ContactProvider>()
+                              .hideContacts[index]);
                     },
                     leading: CircleAvatar(
                       radius: 30,
@@ -56,14 +50,14 @@ class _HomePageState extends State<HomePage> {
                         File(
                           context
                               .watch<ContactProvider>()
-                              .contacts[index]
+                              .hideContacts[index]
                               .image
                               .toString(),
                         ),
                       ),
                     ),
                     title: Text(
-                        "${context.watch<ContactProvider>().contacts[index].name}"),
+                        "${context.watch<ContactProvider>().hideContacts[index].name}"),
                     trailing: IconButton(
                       onPressed: () {
                         context.read<ContactProvider>().removeContact(index);
@@ -74,16 +68,11 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
+            const SizedBox(
+              height: 10,
+            ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        foregroundColor: Colors.white,
-        backgroundColor: const Color(0xff384e78),
-        onPressed: () {
-          Navigator.pushNamed(context, "/contact");
-        },
-        child: const Icon(Icons.add),
       ),
     );
   }
