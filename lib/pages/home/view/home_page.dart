@@ -18,8 +18,18 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/hide');
+            onPressed: () async {
+              bool islock = await context.read<ContactProvider>().isLock();
+
+              if (islock) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Please authenticate to continue"),
+                  ),
+                );
+              } else {
+                Navigator.pushNamed(context, '/hide');
+              }
             },
             icon: const Icon(Icons.lock),
           ),
@@ -36,8 +46,46 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.end,
           children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount:
+                    context.watch<ContactProvider>().favoriteContacts.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    onTap: () {
+                      context.read<ContactProvider>().setSelectedIndex(index);
+
+                      Navigator.pushNamed(context, '/contactDetail',
+                          arguments: context
+                              .read<ContactProvider>()
+                              .favoriteContacts[index]);
+                    },
+                    leading: CircleAvatar(
+                      radius: 30,
+                      foregroundImage: FileImage(
+                        File(
+                          context
+                              .watch<ContactProvider>()
+                              .favoriteContacts[index]
+                              .image
+                              .toString(),
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                        "${context.watch<ContactProvider>().favoriteContacts[index].name}"),
+                    trailing: IconButton(
+                      onPressed: () {
+                        context.read<ContactProvider>().fRemoveContact(index);
+                      },
+                      icon: const Icon(Icons.delete),
+                    ),
+                  );
+                },
+              ),
+            ),
+            const Divider(),
             Expanded(
               child: ListView.builder(
                 itemCount: context.watch<ContactProvider>().contacts.length,
