@@ -1,8 +1,9 @@
-import 'package:contact_app/pages/contact/provier/contact_provier.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'package:contact_app/utils/routes.dart';
-import 'package:contact_app/pages/counter/provider/counter_provider.dart';
+import 'package:contact_app/pages/ios/ios_contact/ios_contact.dart';
+import 'package:contact_app/pages/ios/ios_home/ios_home.dart';
+import 'package:contact_app/pages/ios/ios_favorite/ios_favorite.dart';
+import 'package:contact_app/pages/android/contact/provier/contact_provier.dart';
 
 void main() {
   runApp(
@@ -23,15 +24,21 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider.value(
-          value: CounterProvider(),
-        ),
-        ChangeNotifierProvider.value(
           value: ContactProvider(),
         ),
       ],
-      child: MaterialApp(
+      child:
+          // MaterialApp(
+          //    debugShowCheckedModeBanner: false,
+          //    routes: Routes.routes,
+          //  )
+          CupertinoApp(
         debugShowCheckedModeBanner: false,
-        routes: Routes.routes,
+        routes: {
+          '/': (context) => const IosHomePage(),
+          '/add_contact': (context) => const IosAddContact(),
+          '/favorite': (context) => const IosFavorite(),
+        },
       ),
     );
   }

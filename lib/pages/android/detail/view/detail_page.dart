@@ -1,10 +1,10 @@
 import 'dart:io';
-import 'package:contact_app/main.dart';
-import 'package:contact_app/pages/contact/provier/contact_provier.dart';
+import 'package:contact_app/pages/android/contact/model/contact_model.dart';
+import 'package:contact_app/pages/android/contact/provier/contact_provier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:contact_app/pages/contact/model/contact_model.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key});
@@ -41,10 +41,39 @@ class _DetailPageState extends State<DetailPage> {
             },
             icon: const Icon(Icons.lock),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_vert),
-          ),
+          PopupMenuButton(onSelected: (value) {
+            if (value == 1) {
+              context.read<ContactProvider>().hideContact(contactModel);
+            }
+            if (value == 2) {
+              context.read<ContactProvider>().unHideContact(contactModel);
+            }
+            if (value == 3) {
+              context.read<ContactProvider>().unHideContact(contactModel);
+            }
+          }, itemBuilder: (context) {
+            return [
+              const PopupMenuItem(
+                value: 1,
+                child: Text("Hide"),
+              ),
+              const PopupMenuItem(
+                value: 2,
+                child: Text("UnHide"),
+              ),
+              PopupMenuItem(
+                onTap: () {
+                  Share.share('${contactModel.name} \n ${contactModel.phone}');
+                },
+                value: 2,
+                child: const Text("Share"),
+              ),
+              const PopupMenuItem(
+                value: 2,
+                child: Text("Delete Contact"),
+              ),
+            ];
+          }),
         ],
       ),
       body: Padding(
@@ -134,9 +163,34 @@ class _DetailPageState extends State<DetailPage> {
                 children: [
                   IconButton(
                     onPressed: () {
+                      (context.read<ContactProvider>().favoriteContacts)
+                              .contains(contactModel)
+                          ? context
+                              .read<ContactProvider>()
+                              .unFavoriteContact(contactModel)
+                          : context
+                              .read<ContactProvider>()
+                              .favoriteContact(contactModel);
+                      (context.read<ContactProvider>().favoriteContacts)
+                              .contains(contactModel)
+                          ? context
+                              .read<ContactProvider>()
+                              .contacts
+                              .remove(contactModel)
+                          : context
+                              .read<ContactProvider>()
+                              .contacts
+                              .add(contactModel);
+
                       Navigator.pop(context);
                     },
-                    icon: const Icon(Icons.favorite_border),
+                    icon: (context.read<ContactProvider>().favoriteContacts)
+                            .contains(contactModel)
+                        ? const Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                          )
+                        : const Icon(Icons.favorite_border),
                   ),
                   IconButton(
                     onPressed: () {

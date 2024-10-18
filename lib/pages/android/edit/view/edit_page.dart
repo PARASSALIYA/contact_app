@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:contact_app/pages/contact/provier/contact_provier.dart';
+import 'package:contact_app/pages/android/contact/model/contact_model.dart';
+import 'package:contact_app/pages/android/contact/provier/contact_provier.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:contact_app/pages/contact/model/contact_model.dart';
 import 'package:provider/provider.dart';
 
 class EditPage extends StatefulWidget {
