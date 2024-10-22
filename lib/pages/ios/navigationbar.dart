@@ -1,5 +1,5 @@
-import 'package:contact_app/pages/ios/ios_contact/ios_contact.dart';
-import 'package:contact_app/pages/ios/ios_home/ios_home.dart';
+import 'package:contact_app/pages/android/home/view/ios_home.dart';
+import 'package:contact_app/pages/android/contact/views/ios_contact.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:contact_app/pages/ios/ios_favorite/ios_favorite.dart';

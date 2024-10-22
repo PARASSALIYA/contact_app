@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:contact_app/pages/android/contact/provier/contact_provier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:contact_app/pages/android/contact/provier/contact_provier.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,9 +11,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         actions: [
           IconButton(
@@ -41,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                     Switch(
               value: context.watch<ContactProvider>().isAndroid,
               onChanged: (val) {
-                context.watch<ContactProvider>().platformChange(val);
+                context.read<ContactProvider>().platformChange(val: val);
               },
             ),
           ),
@@ -132,6 +134,39 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return Container(
+                      height: 200,
+                      color: Colors.white,
+                      child: const Center(
+                        child: Text("Bottom Sheet"),
+                      ),
+                    );
+                  },
+                );
+              },
+              child: const Text("Bottom Sheet"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                scaffoldKey.currentState!.showBottomSheet(
+                  (context) {
+                    return Container(
+                      height: 200,
+                      color: Colors.white,
+                      child: const Center(
+                        child: Text("Bottom Sheet 2"),
+                      ),
+                    );
+                  },
+                );
+              },
+              child: const Text("Bottom Sheet"),
             ),
           ],
         ),

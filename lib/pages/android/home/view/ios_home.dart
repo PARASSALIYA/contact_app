@@ -1,7 +1,10 @@
-import 'package:contact_app/pages/ios/ios_contact/ios_contact.dart';
+import 'package:contact_app/main.dart';
+import 'package:contact_app/pages/android/contact/provier/contact_provier.dart';
+import 'package:contact_app/pages/android/contact/views/ios_contact.dart';
 import 'package:contact_app/pages/ios/ios_favorite/ios_favorite.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class IosHomePage extends StatefulWidget {
   const IosHomePage({super.key});
@@ -21,22 +24,19 @@ class _IosHomePageState extends State<IosHomePage> {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         backgroundColor: const Color(0xff384e78),
-        trailing: IconButton(
-          onPressed: () {
-            Navigator.pushNamed(context, '/add_contact');
+        trailing: CupertinoSwitch(
+          value: context.watch<ContactProvider>().isAndroid,
+          onChanged: (value) {
+            context.read<ContactProvider>().platformChange(val: value);
           },
-          icon: const Icon(
-            CupertinoIcons.add,
-            color: Colors.white,
-          ),
         ),
         middle: const Text(
           "Paras",
           style: TextStyle(fontSize: 20),
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
+      child: const Padding(
+        padding: EdgeInsets.all(16),
         child: Text("paras"),
         // CupertinoTabScaffold(
         //   backgroundColor: Colors.white,
