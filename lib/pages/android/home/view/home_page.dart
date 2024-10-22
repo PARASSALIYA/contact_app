@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                     Switch(
               value: context.watch<ContactProvider>().isAndroid,
               onChanged: (val) {
-                context.watch<ContactProvider>().platformChange(val);
+                context.read<ContactProvider>().platformChange(val: val);
               },
             ),
           ),

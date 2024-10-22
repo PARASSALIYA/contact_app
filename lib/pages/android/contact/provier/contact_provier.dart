@@ -75,7 +75,7 @@ class ContactProvider with ChangeNotifier {
   }
 
   bool isAndroid = true;
-  void platformChange(bool val) {
+  void platformChange({required bool val}) {
     isAndroid = val;
     notifyListeners();
   }

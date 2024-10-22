@@ -1,4 +1,7 @@
+import 'package:contact_app/pages/android/home/view/home_page.dart';
+import 'package:contact_app/pages/ios/navigationbar.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:contact_app/pages/ios/ios_contact/ios_contact.dart';
 import 'package:contact_app/pages/ios/ios_home/ios_home.dart';
@@ -7,7 +10,14 @@ import 'package:contact_app/pages/android/contact/provier/contact_provier.dart';
 
 void main() {
   runApp(
-    const MyApp(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: ContactProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
   );
 }
 
@@ -21,25 +31,18 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider.value(
-          value: ContactProvider(),
-        ),
-      ],
-      child:
-          // MaterialApp(
-          //    debugShowCheckedModeBanner: false,
-          //    routes: Routes.routes,
-          //  )
-          CupertinoApp(
-        debugShowCheckedModeBanner: false,
-        routes: {
-          '/': (context) => const IosHomePage(),
-          '/add_contact': (context) => const IosAddContact(),
-          '/favorite': (context) => const IosFavorite(),
-        },
-      ),
+    return Consumer<ContactProvider>(
+      builder: (context, value, child) =>
+          context.watch<ContactProvider>().isAndroid
+              ? MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  home: const HomePage(),
+                )
+              : const CupertinoApp(
+                  debugShowCheckedModeBanner: false,
+                  theme: CupertinoThemeData(brightness: Brightness.dark),
+                  home: IosHomePage(),
+                ),
     );
   }
 }
