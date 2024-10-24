@@ -87,8 +87,8 @@ class _ContactPageState extends State<ContactPage> {
                           imagePath = xfile!.path;
                           setState(() {});
                         },
-                        child: Center(
-                          child: const CircleAvatar(
+                        child: const Center(
+                          child: CircleAvatar(
                             radius: 80,
                             backgroundImage: NetworkImage(
                                 "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"),

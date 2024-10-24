@@ -14,13 +14,14 @@ class _IosAddContactState extends State<IosAddContact> {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         leading: TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text(
-              "Cancel",
-              style: TextStyle(color: Colors.white),
-            )),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text(
+            "Cancel",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
         backgroundColor: const Color(0xff384e78),
         middle: const Text("Add Contact"),
         trailing: TextButton(
