@@ -1,8 +1,9 @@
-import 'package:contact_app/pages/android/home/view/ios_home.dart';
+import 'package:contact_app/pages/android/home/provider/home_provider.dart';
 import 'package:contact_app/pages/android/home/view/home_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:contact_app/pages/android/home/view/ios_home.dart';
 import 'package:contact_app/pages/android/contact/provier/contact_provier.dart';
 
 void main() {
@@ -11,6 +12,9 @@ void main() {
       providers: [
         ChangeNotifierProvider.value(
           value: ContactProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: HomeProvider(),
         ),
       ],
       child: const MyApp(),
@@ -37,7 +41,9 @@ class _MyAppState extends State<MyApp> {
                 )
               : const CupertinoApp(
                   debugShowCheckedModeBanner: false,
-                  theme: CupertinoThemeData(brightness: Brightness.dark),
+                  theme: CupertinoThemeData(
+                    brightness: Brightness.dark,
+                  ),
                   home: IosHomePage(),
                 ),
     );

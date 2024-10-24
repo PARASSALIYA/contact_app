@@ -1,10 +1,9 @@
-import 'package:contact_app/main.dart';
-import 'package:contact_app/pages/android/contact/provier/contact_provier.dart';
-import 'package:contact_app/pages/android/contact/views/ios_contact.dart';
-import 'package:contact_app/pages/ios/ios_favorite/ios_favorite.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:contact_app/pages/ios/ios_favorite/ios_favorite.dart';
+import 'package:contact_app/pages/android/contact/views/ios_contact.dart';
+import 'package:contact_app/pages/android/home/provider/home_provider.dart';
+import 'package:contact_app/pages/android/contact/provier/contact_provier.dart';
 
 class IosHomePage extends StatefulWidget {
   const IosHomePage({super.key});
@@ -14,6 +13,8 @@ class IosHomePage extends StatefulWidget {
 }
 
 class _IosHomePageState extends State<IosHomePage> {
+  late HomeProvider homeProviderW = HomeProvider();
+  late HomeProvider homeProviderR = HomeProvider();
   List pages = [
     const IosHomePage(),
     const IosFavorite(),
@@ -21,6 +22,8 @@ class _IosHomePageState extends State<IosHomePage> {
   ];
   @override
   Widget build(BuildContext context) {
+    homeProviderW = context.watch<HomeProvider>();
+    homeProviderR = context.read<HomeProvider>();
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         backgroundColor: const Color(0xff384e78),
@@ -35,37 +38,73 @@ class _IosHomePageState extends State<IosHomePage> {
           style: TextStyle(fontSize: 20),
         ),
       ),
-      child: const Padding(
-        padding: EdgeInsets.all(16),
-        child: Text("paras"),
-        // CupertinoTabScaffold(
-        //   backgroundColor: Colors.white,
-        //   tabBar: CupertinoTabBar(
-        //     backgroundColor: const Color(0xff384e78),
-        //     activeColor: Colors.white,
-        //     items: const [
-        //       BottomNavigationBarItem(
-        //         icon: Icon(CupertinoIcons.home),
-        //         label: 'Home',
-        //       ),
-        //       BottomNavigationBarItem(
-        //         icon: Icon(CupertinoIcons.heart),
-        //         label: 'Favorite',
-        //       ),
-        //       BottomNavigationBarItem(
-        //         icon: Icon(CupertinoIcons.person),
-        //         label: 'Profile',
-        //       ),
-        //     ],
-        //   ),
-        //   tabBuilder: (BuildContext context, int index) {
-        //     return CupertinoTabView(
-        //       builder: (context) {
-        //         return pages[index];
-        //       },
-        //     );
-        //   },
-        // ),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            // children: [
+            //   CupertinoButton(
+            //     onPressed: () {
+            //       showCupertinoModalPopup(
+            //         context: context,
+            //         builder: (context) {
+            //           return CupertinoActionSheet(
+            //             actions: [
+            //               CupertinoActionSheetAction(
+            //                 onPressed: () {},
+            //                 child: const Text("Paras"),
+            //               ),
+            //               CupertinoActionSheetAction(
+            //                 onPressed: () {},
+            //                 child: const Text("Saliya"),
+            //               ),
+            //               CupertinoActionSheetAction(
+            //                 onPressed: () {},
+            //                 child: const Text("Paras Saliya"),
+            //               ),
+            //             ],
+            //           );
+            //         },
+            //       );
+            //     },
+            //     child: const Text("Paras"),
+            //   ),
+            //   CupertinoContextMenu(
+            //     actions: [
+            //       CupertinoContextMenuAction(
+            //         onPressed: () {},
+            //         child: const Text("Paras"),
+            //       ),
+            //       CupertinoContextMenuAction(
+            //         onPressed: () {},
+            //         child: const Text("Saliya"),
+            //       ),
+            //       CupertinoContextMenuAction(
+            //         onPressed: () {},
+            //         child: const Text("Paras Saliya"),
+            //       ),
+            //     ],
+            //     child: const Text("Paras Saliya"),
+            //   ),
+            CupertinoButton(
+              child: Text(
+                  "${homeProviderW.dateTime.day} - ${homeProviderW.dateTime.month} - ${homeProviderW.dateTime.year}"),
+              onPressed: () {
+                showCupertinoModalPopup(
+                  context: context,
+                  builder: (context) => Container(
+                    height: 300,
+                    child: CupertinoDatePicker(
+                      onDateTimeChanged: (DateTime value) {
+                        homeProviderR.dateTimeChange(value);
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

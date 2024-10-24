@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:contact_app/pages/android/home/provider/home_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:contact_app/pages/android/contact/provier/contact_provier.dart';
@@ -11,9 +12,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late HomeProvider homeProviderW;
+  late HomeProvider homeProviderR;
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    homeProviderW = context.watch<HomeProvider>();
+    homeProviderR = context.read<HomeProvider>();
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -135,6 +140,19 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
             ),
+            ElevatedButton.icon(
+              onPressed: () async {
+                DateTime? dT = await showDatePicker(
+                  context: context,
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2030),
+                );
+                homeProviderR.dateTimeChange(dT!);
+              },
+              label: Text(
+                  "${homeProviderW.dateTime.day} - ${homeProviderW.dateTime.month} - ${homeProviderW.dateTime.year}"),
+              icon: const Icon(Icons.date_range),
+            ),
             ElevatedButton(
               onPressed: () {
                 showModalBottomSheet(
@@ -175,7 +193,7 @@ class _HomePageState extends State<HomePage> {
         foregroundColor: Colors.white,
         backgroundColor: const Color(0xff384e78),
         onPressed: () {
-          Navigator.pushNamed(context, "/contact");
+          Navigator.pushNamed(context, '/contact');
         },
         child: const Icon(Icons.add),
       ),
