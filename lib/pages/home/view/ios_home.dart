@@ -16,11 +16,7 @@ class IosHomePage extends StatefulWidget {
 class _IosHomePageState extends State<IosHomePage> {
   late HomeProvider homeProviderW = HomeProvider();
   late HomeProvider homeProviderR = HomeProvider();
-  List pages = [
-    const IosHomePage(),
-    const IosFavorite(),
-    const IosAddContact(),
-  ];
+
   @override
   Widget build(BuildContext context) {
     homeProviderW = context.watch<HomeProvider>();
@@ -87,23 +83,7 @@ class _IosHomePageState extends State<IosHomePage> {
             //     ],
             //     child: const Text("Paras Saliya"),
             //   ),
-            CupertinoButton(
-              child: Text(
-                  "${homeProviderW.dateTime.day} - ${homeProviderW.dateTime.month} - ${homeProviderW.dateTime.year}"),
-              onPressed: () {
-                showCupertinoModalPopup(
-                  context: context,
-                  builder: (context) => Container(
-                    height: 300,
-                    child: CupertinoDatePicker(
-                      onDateTimeChanged: (DateTime value) {
-                        homeProviderR.dateTimeChange(value);
-                      },
-                    ),
-                  ),
-                );
-              },
-            ),
+
           ],
         ),
       ),

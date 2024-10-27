@@ -11,13 +11,13 @@ class ContactProvider with ChangeNotifier {
   DateTime dateTime = DateTime.now();
   TimeOfDay timeOfDay = TimeOfDay.now();
 
-  void timeChange(TimeOfDay dT) {
-    timeOfDay = dT;
+  void dateTimeChange(DateTime dT) {
+    dateTime = dT;
     notifyListeners();
   }
 
-  void dateTimeChange(DateTime dT) {
-    dateTime = dT;
+  void timeChange(TimeOfDay dT) {
+    timeOfDay = dT;
     notifyListeners();
   }
 

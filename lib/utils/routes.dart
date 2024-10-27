@@ -10,7 +10,7 @@ import 'package:contact_app/pages/home/view/home_page.dart';
 import 'package:contact_app/pages/home/view/ios_home.dart';
 import 'package:contact_app/pages/intro/view/intro_screen.dart';
 import 'package:contact_app/pages/ios/ios_favorite/ios_favorite.dart';
-import 'package:contact_app/pages/profile/profile.dart';
+import 'package:contact_app/pages/profile/views/profile.dart';
 import 'package:contact_app/pages/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -29,13 +29,14 @@ class Routes {
   };
 }
 
-// class IosRoutes {
-//   static Map<String, Widget Function(BuildContext)> routes = {
-//     '/ios_home': (context) => const IosHomePage(),
-//     '/ios_contact': (context) => const IosAddContact(),
-//     // '/ios_contactDetail': (context) => const IosDetailPage(),
-//     '/ios_edit': (context) => const EditPage(),
-//     // '/ios_favorite' :(context)=> const FavoritePage(),
-//     '/ios_hide': (context) => const HideContact(),
-//   };
-// }
+class IosRoutes {
+  static Map<String, Widget Function(BuildContext)> routes = {
+    '/': (context) => const IosNavigationBarPage(),
+    '/ios_home': (context) => const IosHomePage(),
+    '/ios_contact': (context) => const IosAddContact(),
+    // '/ios_contactDetail': (context) => const IosDetailPage(),
+    '/ios_edit': (context) => const EditPage(),
+    // '/ios_favorite' :(context)=> const FavoritePage(),
+    '/ios_hide': (context) => const HideContact(),
+  };
+}
