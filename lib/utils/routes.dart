@@ -5,12 +5,11 @@ import 'package:contact_app/pages/contact/views/ios_contact.dart';
 import 'package:contact_app/pages/detail/view/detail_page.dart';
 import 'package:contact_app/pages/detail/view/ios_detail.dart';
 import 'package:contact_app/pages/edit/view/edit_page.dart';
-import 'package:contact_app/pages/favorite/favorite.dart';
+import 'package:contact_app/pages/edit/view/ios_edit.dart';
 import 'package:contact_app/pages/hide/view/hide_contact.dart';
 import 'package:contact_app/pages/home/view/home_page.dart';
 import 'package:contact_app/pages/home/view/ios_home.dart';
 import 'package:contact_app/pages/intro/view/intro_screen.dart';
-import 'package:contact_app/pages/ios/ios_favorite/ios_favorite.dart';
 import 'package:contact_app/pages/profile/views/profile.dart';
 import 'package:contact_app/pages/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +24,7 @@ class Routes {
     '/profile': (context) => const ProfilePage(),
     '/contactDetail': (context) => const DetailPage(),
     '/edit': (context) => const EditPage(),
-    '/favorite': (context) => const FavoritePage(),
+    // '/favorite': (context) => const FavoritePage(),
     '/hide': (context) => const HideContact(),
   };
 }
@@ -36,7 +35,7 @@ class IosRoutes {
     '/ios_home': (context) => const IosHomePage(),
     '/ios_contact': (context) => const IosAddContact(),
     '/ios_detail': (context) => const IosDetailPage(),
-    '/ios_edit': (context) => const EditPage(),
+    '/ios_edit': (context) => const IosEditPage(),
     // '/ios_favorite' :(context)=> const FavoritePage(),
     '/ios_hide': (context) => const HideContact(),
   };

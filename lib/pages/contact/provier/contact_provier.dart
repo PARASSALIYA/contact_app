@@ -3,15 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 
 class ContactProvider with ChangeNotifier {
-  List<ContactModel> contacts = [
-    ContactModel(
-      name: 'Paras',
-      email: 'paras@me.com',
-      phone: '1234567890',
-    )
-  ];
+  List<ContactModel> contacts = [];
   List<ContactModel> hideContacts = [];
-  List<ContactModel> favoriteContacts = [];
   int selectedIndex = 0;
   String? imagePath;
   DateTime dateTime = DateTime.now();
@@ -44,16 +37,6 @@ class ContactProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void favoriteContact(ContactModel model) {
-    favoriteContacts.add(model);
-    notifyListeners();
-  }
-
-  void unFavoriteContact(ContactModel model) {
-    favoriteContacts.remove(model);
-    notifyListeners();
-  }
-
   void addContact(ContactModel contact) {
     contacts.add(contact);
     notifyListeners();
@@ -61,11 +44,6 @@ class ContactProvider with ChangeNotifier {
 
   void removeContact(int index) {
     contacts.removeAt(index);
-    notifyListeners();
-  }
-
-  void fRemoveContact(int index) {
-    favoriteContacts.removeAt(index);
     notifyListeners();
   }
 

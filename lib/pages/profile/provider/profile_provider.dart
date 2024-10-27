@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileProvider with ChangeNotifier {
   bool darkMode = false;
@@ -15,6 +14,3 @@ class ProfileProvider with ChangeNotifier {
     notifyListeners();
   }
 }
-
-
-

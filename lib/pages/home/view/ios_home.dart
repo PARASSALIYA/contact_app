@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:contact_app/pages/contact/provier/contact_provier.dart';
 import 'package:contact_app/pages/profile/provider/profile_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,16 +22,10 @@ class _IosHomePageState extends State<IosHomePage> {
     contactProviderW = context.watch<ContactProvider>();
     contactProviderR = context.read<ContactProvider>();
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        backgroundColor: const Color(0xff384e78),
-        trailing: CupertinoSwitch(
-          value: context.watch<ProfileProvider>().isAndroid,
-          onChanged: (value) {
-            context.read<ProfileProvider>().platformChange(val: value);
-          },
-        ),
-        middle: const Text(
-          "Paras",
+      navigationBar: const CupertinoNavigationBar(
+        backgroundColor: Color(0xff384e78),
+        middle: Text(
+          "All Contacts",
           style: TextStyle(fontSize: 20, color: CupertinoColors.white),
         ),
       ),
@@ -38,21 +33,43 @@ class _IosHomePageState extends State<IosHomePage> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            ...contactProviderW.contacts.map(
-              (e) => GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/ios_detail', arguments: e);
-                },
-                child: CupertinoListTile(
-                  leading: CircleAvatar(
-                    foregroundImage: FileImage(
-                      File(
-                        e.image.toString(),
+            const SizedBox(
+              height: 20,
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: context.watch<ContactProvider>().contacts.length,
+                itemBuilder: (context, index) {
+                  return CupertinoListTile(
+                    onTap: () {
+                      context.read<ContactProvider>().setSelectedIndex(index);
+
+                      Navigator.pushNamed(context, '/ios_detail',
+                          arguments:
+                              context.read<ContactProvider>().contacts[index]);
+                    },
+                    leading: CircleAvatar(
+                      radius: 30,
+                      foregroundImage: FileImage(
+                        File(
+                          context
+                              .watch<ContactProvider>()
+                              .contacts[index]
+                              .image
+                              .toString(),
+                        ),
                       ),
                     ),
-                  ),
-                  title: Text("${e.name}"),
-                ),
+                    title: Text(
+                        "${context.watch<ContactProvider>().contacts[index].name}"),
+                    trailing: IconButton(
+                      onPressed: () {
+                        context.read<ContactProvider>().removeContact(index);
+                      },
+                      icon: const Icon(Icons.delete),
+                    ),
+                  );
+                },
               ),
             ),
           ],

@@ -1,9 +1,9 @@
 import 'package:contact_app/pages/contact/views/ios_contact.dart';
+import 'package:contact_app/pages/favorite/ios_favorite.dart';
 import 'package:contact_app/pages/home/view/ios_home.dart';
 import 'package:contact_app/pages/profile/views/ios_profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:contact_app/pages/ios/ios_favorite/ios_favorite.dart';
 
 class IosNavigationBarPage extends StatefulWidget {
   const IosNavigationBarPage({super.key});
@@ -14,7 +14,7 @@ class IosNavigationBarPage extends StatefulWidget {
 
 class _IosNavigationBarPageState extends State<IosNavigationBarPage> {
   List pages = [
-    const IosFavorite(),
+    const IosFavoritePage(),
     const IosAddContact(),
     const IosHomePage(),
     const IosProfilePage(),
@@ -51,11 +51,7 @@ class _IosNavigationBarPageState extends State<IosNavigationBarPage> {
           ],
         ),
         tabBuilder: (BuildContext context, int index) {
-          return CupertinoTabView(
-            builder: (context) {
-              return pages[index];
-            },
-          );
+          return pages[index];
         },
       ),
     );

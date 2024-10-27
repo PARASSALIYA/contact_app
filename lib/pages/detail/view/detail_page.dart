@@ -113,7 +113,7 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 ),
                 subtitle: Text(
-                  "${contactModel.phone}",
+                  "+91 ${contactModel.phone}",
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -199,8 +199,11 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                   IconButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/edit',
-                          arguments: contactModel);
+                      Navigator.pushNamed(
+                        context,
+                        '/edit',
+                        arguments: contactModel,
+                      );
                     },
                     icon: const Icon(Icons.edit),
                   ),

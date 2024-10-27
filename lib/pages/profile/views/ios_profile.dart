@@ -14,18 +14,24 @@ class IosProfilePage extends StatefulWidget {
 class _IosProfilePageState extends State<IosProfilePage> {
   String? imagePath;
 
+  TextEditingController nameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        backgroundColor: Color(0xff384e78),
-        middle: Text(
+        backgroundColor: const Color(0xff384e78),
+        middle: const Text(
           "Profile",
           style: TextStyle(color: CupertinoColors.white),
         ),
+        trailing: CupertinoButton(
+          child: const Text("Save"),
+          onPressed: () {},
+        ),
       ),
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             GestureDetector(
@@ -49,9 +55,16 @@ class _IosProfilePageState extends State<IosProfilePage> {
               ),
             ),
             const SizedBox(
-              height: 40,
+              height: 20,
+            ),
+            Text(
+              nameController.text.isEmpty ? "" : "UserName",
+            ),
+            const SizedBox(
+              height: 20,
             ),
             CupertinoTextField(
+              controller: nameController,
               decoration: BoxDecoration(
                 border: Border.all(
                   color: context.watch<ProfileProvider>().darkMode

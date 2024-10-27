@@ -29,18 +29,15 @@ class _IosAddContactState extends State<IosAddContact> {
     contactProviderR = context.read<ContactProvider>();
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        leading: TextButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Text(
-            "Cancel",
-            style: TextStyle(color: Colors.white),
+        backgroundColor: const Color(0xff384e78),
+        middle: const Text(
+          "Add Contact",
+          style: TextStyle(
+            color: CupertinoColors.white,
           ),
         ),
-        backgroundColor: const Color(0xff384e78),
-        middle: const Text("Add Contact"),
-        trailing: TextButton(
+        trailing: CupertinoButton(
+          padding: const EdgeInsets.all(10),
           onPressed: () {
             String name = nameController.text;
             String phone = phoneController.text;
@@ -54,13 +51,9 @@ class _IosAddContactState extends State<IosAddContact> {
             );
             contactProviderR.addContact(contact);
 
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                behavior: SnackBarBehavior.floating,
-                backgroundColor: Colors.green,
-                content: Text("Save Successfully..."),
-              ),
-            );
+            nameController.clear();
+            phoneController.clear();
+            emailController.clear();
           },
           child: const Text(
             "Done",
@@ -143,6 +136,7 @@ class _IosAddContactState extends State<IosAddContact> {
                 height: 20,
               ),
               CupertinoTextField(
+                maxLength: 10,
                 keyboardType: TextInputType.phone,
                 controller: phoneController,
                 decoration: BoxDecoration(
