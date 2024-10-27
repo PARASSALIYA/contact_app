@@ -1,4 +1,8 @@
+import 'package:contact_app/pages/profile/provider/profile_provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class IosProfilePage extends StatefulWidget {
   const IosProfilePage({super.key});
@@ -8,11 +12,95 @@ class IosProfilePage extends StatefulWidget {
 }
 
 class _IosProfilePageState extends State<IosProfilePage> {
+  String? imagePath;
+
   @override
   Widget build(BuildContext context) {
-    return const CupertinoPageScaffold(
-      child: Center(
-        child: Text("Profile"),
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        backgroundColor: Color(0xff384e78),
+        middle: Text(
+          "Profile",
+          style: TextStyle(color: CupertinoColors.white),
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: () async {
+                ImagePicker imagePicker = ImagePicker();
+
+                XFile? xfile = await imagePicker.pickImage(
+                  source: ImageSource.gallery,
+                  imageQuality: 100,
+                );
+                imagePath = xfile!.path;
+                setState(() {});
+              },
+              child: const Center(
+                child: CircleAvatar(
+                  radius: 80,
+                  backgroundImage: NetworkImage(
+                    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            CupertinoTextField(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: context.watch<ProfileProvider>().darkMode
+                      ? CupertinoColors.white
+                      : CupertinoColors.black,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: const EdgeInsets.all(16),
+              placeholder: "Name",
+              prefix: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(CupertinoIcons.person),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            CupertinoListTile(
+              title: const Text("Dark Mode"),
+              trailing: Consumer<ProfileProvider>(
+                builder: (BuildContext context, ProfileProvider value,
+                        Widget? child) =>
+                    CupertinoSwitch(
+                  value: context.watch<ProfileProvider>().darkMode,
+                  onChanged: (val) {
+                    context.read<ProfileProvider>().isDark(val);
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            CupertinoListTile(
+              title: const Text("Platform"),
+              trailing: Consumer<ProfileProvider>(
+                builder: (BuildContext context, ProfileProvider value,
+                        Widget? child) =>
+                    CupertinoSwitch(
+                  value: context.watch<ProfileProvider>().isAndroid,
+                  onChanged: (val) {
+                    context.read<ProfileProvider>().platformChange(val: val);
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

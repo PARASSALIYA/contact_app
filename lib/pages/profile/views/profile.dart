@@ -49,7 +49,6 @@ class _ProfilePageState extends State<ProfilePage> {
               height: 40,
             ),
             TextField(
-              // controller: nameController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),

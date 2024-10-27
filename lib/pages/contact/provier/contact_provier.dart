@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 
 class ContactProvider with ChangeNotifier {
-  List<ContactModel> contacts = [];
+  List<ContactModel> contacts = [
+    ContactModel(
+      name: 'Paras',
+      email: 'paras@me.com',
+      phone: '1234567890',
+    )
+  ];
   List<ContactModel> hideContacts = [];
   List<ContactModel> favoriteContacts = [];
   int selectedIndex = 0;

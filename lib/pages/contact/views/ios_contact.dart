@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:contact_app/pages/contact/model/contact_model.dart';
 import 'package:contact_app/pages/contact/provier/contact_provier.dart';
+import 'package:contact_app/pages/profile/provider/profile_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -124,7 +125,11 @@ class _IosAddContactState extends State<IosAddContact> {
               CupertinoTextField(
                 controller: nameController,
                 decoration: BoxDecoration(
-                  border: Border.all(),
+                  border: Border.all(
+                    color: context.watch<ProfileProvider>().darkMode
+                        ? CupertinoColors.white
+                        : CupertinoColors.black,
+                  ),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 padding: const EdgeInsets.all(16),
@@ -141,7 +146,11 @@ class _IosAddContactState extends State<IosAddContact> {
                 keyboardType: TextInputType.phone,
                 controller: phoneController,
                 decoration: BoxDecoration(
-                  border: Border.all(),
+                  border: Border.all(
+                    color: context.watch<ProfileProvider>().darkMode
+                        ? CupertinoColors.white
+                        : CupertinoColors.black,
+                  ),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 padding: const EdgeInsets.all(16),
@@ -158,7 +167,11 @@ class _IosAddContactState extends State<IosAddContact> {
                 keyboardType: TextInputType.emailAddress,
                 controller: emailController,
                 decoration: BoxDecoration(
-                  border: Border.all(),
+                  border: Border.all(
+                    color: context.watch<ProfileProvider>().darkMode
+                        ? CupertinoColors.white
+                        : CupertinoColors.black,
+                  ),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 padding: const EdgeInsets.all(16),
@@ -177,7 +190,6 @@ class _IosAddContactState extends State<IosAddContact> {
                     context: context,
                     builder: (context) => Container(
                       height: 300,
-                      color: CupertinoColors.white,
                       child: CupertinoDatePicker(
                         mode: CupertinoDatePickerMode.date,
                         onDateTimeChanged: (DateTime value) {
@@ -198,12 +210,12 @@ class _IosAddContactState extends State<IosAddContact> {
                     context: context,
                     builder: (context) => Container(
                       height: 300,
-                      color: CupertinoColors.white,
                       child: CupertinoDatePicker(
                         mode: CupertinoDatePickerMode.time,
                         onDateTimeChanged: (DateTime value) {
-                          contactProviderR.timeChange(TimeOfDay(
-                              hour: value.hour, minute: value.minute));
+                          contactProviderR.timeChange(
+                            TimeOfDay(hour: value.hour, minute: value.minute),
+                          );
                         },
                       ),
                     ),

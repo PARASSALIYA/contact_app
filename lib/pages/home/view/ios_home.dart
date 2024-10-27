@@ -1,10 +1,9 @@
+import 'dart:io';
 import 'package:contact_app/pages/contact/provier/contact_provier.dart';
-import 'package:contact_app/pages/contact/views/ios_contact.dart';
-import 'package:contact_app/pages/home/provider/home_provider.dart';
 import 'package:contact_app/pages/profile/provider/profile_provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:contact_app/pages/ios/ios_favorite/ios_favorite.dart';
 
 class IosHomePage extends StatefulWidget {
   const IosHomePage({super.key});
@@ -14,13 +13,13 @@ class IosHomePage extends StatefulWidget {
 }
 
 class _IosHomePageState extends State<IosHomePage> {
-  late HomeProvider homeProviderW = HomeProvider();
-  late HomeProvider homeProviderR = HomeProvider();
+  late ContactProvider contactProviderW = ContactProvider();
+  late ContactProvider contactProviderR = ContactProvider();
 
   @override
   Widget build(BuildContext context) {
-    homeProviderW = context.watch<HomeProvider>();
-    homeProviderR = context.read<HomeProvider>();
+    contactProviderW = context.watch<ContactProvider>();
+    contactProviderR = context.read<ContactProvider>();
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         backgroundColor: const Color(0xff384e78),
@@ -32,58 +31,30 @@ class _IosHomePageState extends State<IosHomePage> {
         ),
         middle: const Text(
           "Paras",
-          style: TextStyle(fontSize: 20),
+          style: TextStyle(fontSize: 20, color: CupertinoColors.white),
         ),
       ),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            // children: [
-            //   CupertinoButton(
-            //     onPressed: () {
-            //       showCupertinoModalPopup(
-            //         context: context,
-            //         builder: (context) {
-            //           return CupertinoActionSheet(
-            //             actions: [
-            //               CupertinoActionSheetAction(
-            //                 onPressed: () {},
-            //                 child: const Text("Paras"),
-            //               ),
-            //               CupertinoActionSheetAction(
-            //                 onPressed: () {},
-            //                 child: const Text("Saliya"),
-            //               ),
-            //               CupertinoActionSheetAction(
-            //                 onPressed: () {},
-            //                 child: const Text("Paras Saliya"),
-            //               ),
-            //             ],
-            //           );
-            //         },
-            //       );
-            //     },
-            //     child: const Text("Paras"),
-            //   ),
-            //   CupertinoContextMenu(
-            //     actions: [
-            //       CupertinoContextMenuAction(
-            //         onPressed: () {},
-            //         child: const Text("Paras"),
-            //       ),
-            //       CupertinoContextMenuAction(
-            //         onPressed: () {},
-            //         child: const Text("Saliya"),
-            //       ),
-            //       CupertinoContextMenuAction(
-            //         onPressed: () {},
-            //         child: const Text("Paras Saliya"),
-            //       ),
-            //     ],
-            //     child: const Text("Paras Saliya"),
-            //   ),
-
+            ...contactProviderW.contacts.map(
+              (e) => GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/ios_detail', arguments: e);
+                },
+                child: CupertinoListTile(
+                  leading: CircleAvatar(
+                    foregroundImage: FileImage(
+                      File(
+                        e.image.toString(),
+                      ),
+                    ),
+                  ),
+                  title: Text("${e.name}"),
+                ),
+              ),
+            ),
           ],
         ),
       ),
