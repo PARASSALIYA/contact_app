@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:contact_app/pages/android/contact/model/contact_model.dart';
-import 'package:contact_app/pages/android/contact/provier/contact_provier.dart';
+import 'package:contact_app/pages/contact/model/contact_model.dart';
+import 'package:contact_app/pages/contact/provier/contact_provier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -17,7 +17,7 @@ class _DetailPageState extends State<DetailPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-
+  bool isLike = false;
   @override
   Widget build(BuildContext context) {
     ContactModel contactModel =
@@ -35,45 +35,38 @@ class _DetailPageState extends State<DetailPage> {
         backgroundColor: const Color(0xff384e78),
         foregroundColor: Colors.white,
         actions: [
-          IconButton(
-            onPressed: () {
-              context.read<ContactProvider>().hideContact(contactModel);
+          // IconButton(
+          //   onPressed: () {
+          //     context.read<ContactProvider>().hideContact(contactModel);
+          //   },
+          //   icon: const Icon(Icons.lock),
+          // ),
+          PopupMenuButton(
+            onSelected: (value) {},
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  onTap: () {
+                    context.read<ContactProvider>().hideContact(contactModel);
+                  },
+                  value: 1,
+                  child: const Text("Hide Contact"),
+                ),
+                PopupMenuItem(
+                  onTap: () {
+                    Share.share(
+                        '${contactModel.name} \n ${contactModel.phone}');
+                  },
+                  value: 2,
+                  child: const Text("Share"),
+                ),
+                const PopupMenuItem(
+                  value: 2,
+                  child: Text("Delete Contact"),
+                ),
+              ];
             },
-            icon: const Icon(Icons.lock),
           ),
-          PopupMenuButton(onSelected: (value) {
-            if (value == 1) {
-              context.read<ContactProvider>().hideContact(contactModel);
-            }
-            if (value == 2) {
-              context.read<ContactProvider>().unHideContact(contactModel);
-            }
-            if (value == 3) {
-              context.read<ContactProvider>().unHideContact(contactModel);
-            }
-          }, itemBuilder: (context) {
-            return [
-              const PopupMenuItem(
-                value: 1,
-                child: Text("Hide"),
-              ),
-              const PopupMenuItem(
-                value: 2,
-                child: Text("UnHide"),
-              ),
-              PopupMenuItem(
-                onTap: () {
-                  Share.share('${contactModel.name} \n ${contactModel.phone}');
-                },
-                value: 2,
-                child: const Text("Share"),
-              ),
-              const PopupMenuItem(
-                value: 2,
-                child: Text("Delete Contact"),
-              ),
-            ];
-          }),
         ],
       ),
       body: Padding(
@@ -161,31 +154,43 @@ class _DetailPageState extends State<DetailPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // IconButton(
+                  //   onPressed: () {
+                  //     (context.read<ContactProvider>().favoriteContacts)
+                  //             .contains(contactModel)
+                  //         ? context
+                  //             .read<ContactProvider>()
+                  //             .unFavoriteContact(contactModel)
+                  //         : context
+                  //             .read<ContactProvider>()
+                  //             .favoriteContact(contactModel);
+                  //     (context.read<ContactProvider>().favoriteContacts)
+                  //             .contains(contactModel)
+                  //         ? context
+                  //             .read<ContactProvider>()
+                  //             .contacts
+                  //             .remove(contactModel)
+                  //         : context
+                  //             .read<ContactProvider>()
+                  //             .contacts
+                  //             .add(contactModel);
+                  //
+                  //     // Navigator.pop(context);
+                  //   },
+                  //   icon: (context.read<ContactProvider>().favoriteContacts)
+                  //           .contains(contactModel)
+                  //       ? const Icon(
+                  //           Icons.favorite,
+                  //           color: Colors.red,
+                  //         )
+                  //       : const Icon(Icons.favorite_border),
+                  // ),
                   IconButton(
                     onPressed: () {
-                      (context.read<ContactProvider>().favoriteContacts)
-                              .contains(contactModel)
-                          ? context
-                              .read<ContactProvider>()
-                              .unFavoriteContact(contactModel)
-                          : context
-                              .read<ContactProvider>()
-                              .favoriteContact(contactModel);
-                      (context.read<ContactProvider>().favoriteContacts)
-                              .contains(contactModel)
-                          ? context
-                              .read<ContactProvider>()
-                              .contacts
-                              .remove(contactModel)
-                          : context
-                              .read<ContactProvider>()
-                              .contacts
-                              .add(contactModel);
-
-                      Navigator.pop(context);
+                      isLike = !isLike;
+                      setState(() {});
                     },
-                    icon: (context.read<ContactProvider>().favoriteContacts)
-                            .contains(contactModel)
+                    icon: isLike
                         ? const Icon(
                             Icons.favorite,
                             color: Colors.red,

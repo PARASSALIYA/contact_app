@@ -1,10 +1,14 @@
-import 'package:contact_app/pages/android/home/provider/home_provider.dart';
-import 'package:contact_app/pages/android/home/view/home_page.dart';
+import 'package:contact_app/pages/bottomnavigationbar/provider/navigation_provider.dart';
+import 'package:contact_app/pages/contact/provier/contact_provier.dart';
+import 'package:contact_app/pages/detail/provider/detail_provider.dart';
+import 'package:contact_app/pages/home/provider/home_provider.dart';
+import 'package:contact_app/pages/home/view/home_page.dart';
+import 'package:contact_app/pages/home/view/ios_home.dart';
+import 'package:contact_app/pages/profile/provider/profile_provider.dart';
+import 'package:contact_app/utils/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:contact_app/pages/android/home/view/ios_home.dart';
-import 'package:contact_app/pages/android/contact/provier/contact_provier.dart';
 
 void main() {
   runApp(
@@ -15,6 +19,15 @@ void main() {
         ),
         ChangeNotifierProvider.value(
           value: HomeProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: NavigationBarProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: ProfileProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: DetailProvider(),
         ),
       ],
       child: const MyApp(),
@@ -32,17 +45,22 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<ContactProvider>(
+    return Consumer<ProfileProvider>(
       builder: (context, value, child) =>
-          context.watch<ContactProvider>().isAndroid
-              ? const MaterialApp(
+          context.watch<ProfileProvider>().isAndroid
+              ? MaterialApp(
                   debugShowCheckedModeBanner: false,
-                  home: HomePage(),
+                  theme: context.watch<ProfileProvider>().darkMode
+                      ? ThemeData.dark()
+                      : ThemeData.light(),
+                  routes: Routes.routes,
                 )
-              : const CupertinoApp(
+              : CupertinoApp(
                   debugShowCheckedModeBanner: false,
                   theme: CupertinoThemeData(
-                    brightness: Brightness.dark,
+                    brightness: context.watch<ProfileProvider>().darkMode
+                        ? Brightness.dark
+                        : Brightness.light,
                   ),
                   home: IosHomePage(),
                 ),

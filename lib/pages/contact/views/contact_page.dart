@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:contact_app/pages/android/contact/model/contact_model.dart';
-import 'package:contact_app/pages/android/contact/provier/contact_provier.dart';
+import 'package:contact_app/pages/contact/model/contact_model.dart';
+import 'package:contact_app/pages/contact/provier/contact_provier.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -18,9 +18,12 @@ class _ContactPageState extends State<ContactPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-
+  late ContactProvider contactProviderW;
+  late ContactProvider contactProviderR;
   @override
   Widget build(BuildContext context) {
+    contactProviderW = context.watch<ContactProvider>();
+    contactProviderR = context.read<ContactProvider>();
     return Scaffold(
       // backgroundColor: const Color(0xff384e78).withOpacity(0.5),
       appBar: AppBar(
@@ -28,12 +31,6 @@ class _ContactPageState extends State<ContactPage> {
         foregroundColor: Colors.white,
         centerTitle: true,
         title: const Text('Add Contact'),
-        leading: IconButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          icon: const Icon(Icons.arrow_back_ios),
-        ),
         actions: [
           IconButton(
             onPressed: () {
@@ -56,7 +53,6 @@ class _ContactPageState extends State<ContactPage> {
                   content: Text("Save Successfully..."),
                 ),
               );
-              Navigator.pop(context);
             },
             icon: const Icon(
               Icons.check,
@@ -188,6 +184,56 @@ class _ContactPageState extends State<ContactPage> {
                     prefixIcon: const Icon(Icons.email),
                     hintText: "Enter Email",
                     hintStyle: const TextStyle(color: Colors.grey),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ListTile(
+                  onTap: () async {
+                    DateTime? dT = await showDatePicker(
+                      context: context,
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(2030),
+                    );
+                    contactProviderR.dateTimeChange(dT!);
+                  },
+                  leading: const Icon(
+                    Icons.calendar_month,
+                  ),
+                  title: const Text(
+                    "Date",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  trailing: Text(
+                    "${contactProviderW.dateTime.day} - ${contactProviderW.dateTime.month} - ${contactProviderW.dateTime.year}",
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                ),
+                ListTile(
+                  onTap: () async {
+                    TimeOfDay? time = await showTimePicker(
+                      context: context,
+                      initialTime: TimeOfDay.now(),
+                    );
+                    contactProviderR.timeChange(time!);
+                  },
+                  leading: const Icon(
+                    Icons.access_time,
+                  ),
+                  title: const Text(
+                    "Time",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  trailing: Text(
+                    "${contactProviderW.timeOfDay.hour.toString().padLeft(2, '0')} : ${contactProviderW.timeOfDay.minute.toString().padLeft(2, '0')}  ${contactProviderW.timeOfDay.hour < 12 ? "AM" : "PM"}",
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ),
               ],

@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
         if (value == true) {
           Timer(
             const Duration(seconds: 3),
-            () => Navigator.pushReplacementNamed(context, "/home"),
+            () => Navigator.pushReplacementNamed(context, "/navigation_bar"),
           );
         } else {
           Timer(

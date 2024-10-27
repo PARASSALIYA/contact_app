@@ -25,7 +25,7 @@ class _IntroScreenState extends State<IntroScreen> {
               onDone: () {
                 ShrHelper prefs = ShrHelper();
                 prefs.shareIntro();
-                Navigator.pushReplacementNamed(context, "/home");
+                Navigator.pushReplacementNamed(context, "/navigation_bar");
               },
               pages: [
                 PageViewModel(

@@ -1,4 +1,4 @@
-import 'package:contact_app/pages/android/contact/model/contact_model.dart';
+import 'package:contact_app/pages/contact/model/contact_model.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 
@@ -7,8 +7,19 @@ class ContactProvider with ChangeNotifier {
   List<ContactModel> hideContacts = [];
   List<ContactModel> favoriteContacts = [];
   int selectedIndex = 0;
-
   String? imagePath;
+  DateTime dateTime = DateTime.now();
+  TimeOfDay timeOfDay = TimeOfDay.now();
+
+  void timeChange(TimeOfDay dT) {
+    timeOfDay = dT;
+    notifyListeners();
+  }
+
+  void dateTimeChange(DateTime dT) {
+    dateTime = dT;
+    notifyListeners();
+  }
 
   void setSelectedIndex(int index) {
     selectedIndex = index;
@@ -71,12 +82,5 @@ class ContactProvider with ChangeNotifier {
     } else {
       return false;
     }
-    return false;
-  }
-
-  bool isAndroid = true;
-  void platformChange({required bool val}) {
-    isAndroid = val;
-    notifyListeners();
   }
 }

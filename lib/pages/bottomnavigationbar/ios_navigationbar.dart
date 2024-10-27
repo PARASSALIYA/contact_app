@@ -1,17 +1,16 @@
-import 'package:contact_app/pages/android/home/view/ios_home.dart';
-import 'package:contact_app/pages/android/contact/views/ios_contact.dart';
+import 'package:contact_app/pages/home/view/ios_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:contact_app/pages/ios/ios_favorite/ios_favorite.dart';
 
-class NavigationBarPage extends StatefulWidget {
-  const NavigationBarPage({super.key});
+class IosNavigationBarPage extends StatefulWidget {
+  const IosNavigationBarPage({super.key});
 
   @override
-  State<NavigationBarPage> createState() => _NavigationBarPageState();
+  State<IosNavigationBarPage> createState() => _IosNavigationBarPageState();
 }
 
-class _NavigationBarPageState extends State<NavigationBarPage> {
+class _IosNavigationBarPageState extends State<IosNavigationBarPage> {
   List pages = [
     const IosHomePage(),
     const IosFavorite(),
