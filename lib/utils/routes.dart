@@ -3,6 +3,7 @@ import 'package:contact_app/pages/bottomnavigationbar/navigationbar.dart';
 import 'package:contact_app/pages/contact/views/contact_page.dart';
 import 'package:contact_app/pages/contact/views/ios_contact.dart';
 import 'package:contact_app/pages/detail/view/detail_page.dart';
+import 'package:contact_app/pages/detail/view/ios_detail.dart';
 import 'package:contact_app/pages/edit/view/edit_page.dart';
 import 'package:contact_app/pages/favorite/favorite.dart';
 import 'package:contact_app/pages/hide/view/hide_contact.dart';
@@ -34,7 +35,7 @@ class IosRoutes {
     '/': (context) => const IosNavigationBarPage(),
     '/ios_home': (context) => const IosHomePage(),
     '/ios_contact': (context) => const IosAddContact(),
-    // '/ios_contactDetail': (context) => const IosDetailPage(),
+    '/ios_detail': (context) => const IosDetailPage(),
     '/ios_edit': (context) => const EditPage(),
     // '/ios_favorite' :(context)=> const FavoritePage(),
     '/ios_hide': (context) => const HideContact(),
