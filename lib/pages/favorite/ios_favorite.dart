@@ -37,6 +37,12 @@ class _IosFavoritePageState extends State<IosFavoritePage> {
                   Navigator.pushNamed(context, '/ios_detail', arguments: e);
                 },
                 child: CupertinoListTile(
+                  trailing: CupertinoButton(
+                      padding: const EdgeInsets.all(10),
+                      child: const Icon(CupertinoIcons.delete_solid),
+                      onPressed: () {
+                        favoriteProviderR.unFavoriteContact(e);
+                      }),
                   leading: CircleAvatar(
                     foregroundImage: FileImage(
                       File(

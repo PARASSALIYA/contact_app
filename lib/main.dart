@@ -13,12 +13,24 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: ContactProvider()),
-        ChangeNotifierProvider.value(value: HomeProvider()),
-        ChangeNotifierProvider.value(value: NavigationBarProvider()),
-        ChangeNotifierProvider.value(value: ProfileProvider()),
-        ChangeNotifierProvider.value(value: DetailProvider()),
-        ChangeNotifierProvider.value(value: FavoriteProvider()),
+        ChangeNotifierProvider.value(
+          value: ContactProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: HomeProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: NavigationBarProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: ProfileProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: DetailProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: FavoriteProvider(),
+        ),
       ],
       child: const MyApp(),
     ),

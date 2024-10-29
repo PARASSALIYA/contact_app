@@ -26,6 +26,7 @@ class _IosProfilePageState extends State<IosProfilePage> {
           style: TextStyle(color: CupertinoColors.white),
         ),
         trailing: CupertinoButton(
+          padding: const EdgeInsets.all(10),
           child: const Text("Save"),
           onPressed: () {},
         ),

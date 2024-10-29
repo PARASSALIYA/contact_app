@@ -26,6 +26,7 @@ class _EditPageState extends State<EditPage> {
     nameController.text = editContact.name!;
     phoneController.text = editContact.phone!;
     emailController.text = editContact.email!;
+    imagePath = editContact.image;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Edit Contact'),
@@ -44,6 +45,7 @@ class _EditPageState extends State<EditPage> {
               editContact.name = nameController.text;
               editContact.phone = phoneController.text;
               editContact.email = emailController.text;
+              editContact.image = imagePath;
 
               // ContactModel model = ContactModel(
               //   name: nameController.text,

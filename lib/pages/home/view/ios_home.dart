@@ -66,7 +66,7 @@ class _IosHomePageState extends State<IosHomePage> {
                       onPressed: () {
                         context.read<ContactProvider>().removeContact(index);
                       },
-                      icon: const Icon(Icons.delete),
+                      icon: const Icon(CupertinoIcons.delete_solid),
                     ),
                   );
                 },

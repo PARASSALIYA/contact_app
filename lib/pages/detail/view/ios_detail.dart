@@ -1,6 +1,10 @@
 import 'dart:io';
+import 'package:contact_app/pages/contact/provier/contact_provier.dart';
+import 'package:contact_app/pages/contact/provier/contact_provier.dart';
+import 'package:contact_app/pages/favorite/provider/favorite_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:contact_app/pages/contact/model/contact_model.dart';
@@ -143,6 +147,49 @@ class _IosDetailPageState extends State<IosDetailPage> {
                 trailing: const Icon(
                   CupertinoIcons.share_solid,
                 ),
+              ),
+            ),
+            CupertinoContextMenuAction(
+              child: CupertinoListTile(
+                onTap: () {
+                  (context.read<FavoriteProvider>().favoriteContacts)
+                          .contains(contactModel)
+                      ? context
+                          .read<FavoriteProvider>()
+                          .unFavoriteContact(contactModel)
+                      : context
+                          .read<FavoriteProvider>()
+                          .favoriteContact(contactModel);
+                  (context.read<FavoriteProvider>().favoriteContacts)
+                          .contains(contactModel)
+                      ? context
+                          .read<ContactProvider>()
+                          .contacts
+                          .remove(contactModel)
+                      : context
+                          .read<ContactProvider>()
+                          .contacts
+                          .add(contactModel);
+                },
+                title: const Text(
+                  "Favorite Contact",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                trailing: context
+                        .watch<FavoriteProvider>()
+                        .favoriteContacts
+                        .contains(contactModel)
+                    ? const Icon(
+                        CupertinoIcons.star_fill,
+                        color: CupertinoColors.systemYellow,
+                      )
+                    : const Icon(
+                        CupertinoIcons.star,
+                        color: CupertinoColors.systemYellow,
+                      ),
               ),
             ),
           ],
