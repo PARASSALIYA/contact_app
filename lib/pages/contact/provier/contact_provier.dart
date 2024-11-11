@@ -15,6 +15,11 @@ class ContactProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteContact(ContactModel model) {
+    contacts.remove(model);
+    notifyListeners();
+  }
+
   void timeChange(TimeOfDay dT) {
     timeOfDay = dT;
     notifyListeners();

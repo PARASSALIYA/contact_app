@@ -1,5 +1,4 @@
 import 'package:contact_app/pages/contact/views/ios_contact.dart';
-import 'package:contact_app/pages/favorite/ios_favorite.dart';
 import 'package:contact_app/pages/home/view/ios_home.dart';
 import 'package:contact_app/pages/profile/views/ios_profile.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,6 @@ class IosNavigationBarPage extends StatefulWidget {
 
 class _IosNavigationBarPageState extends State<IosNavigationBarPage> {
   List pages = [
-    const IosFavoritePage(),
     const IosAddContact(),
     const IosHomePage(),
     const IosProfilePage(),
@@ -29,13 +27,6 @@ class _IosNavigationBarPageState extends State<IosNavigationBarPage> {
           backgroundColor: const Color(0xff384e78),
           activeColor: Colors.white,
           items: const [
-            BottomNavigationBarItem(
-              icon: Icon(
-                CupertinoIcons.star_fill,
-                color: CupertinoColors.systemYellow,
-              ),
-              label: 'Favorite',
-            ),
             BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.person_add_solid),
               label: 'Add Contact',

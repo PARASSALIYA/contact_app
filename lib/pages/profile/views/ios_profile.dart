@@ -35,6 +35,9 @@ class _IosProfilePageState extends State<IosProfilePage> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
+            const SizedBox(
+              height: 20,
+            ),
             GestureDetector(
               onTap: () async {
                 ImagePicker imagePicker = ImagePicker();

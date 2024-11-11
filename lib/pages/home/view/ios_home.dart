@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:contact_app/pages/contact/provier/contact_provier.dart';
-import 'package:contact_app/pages/profile/provider/profile_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +15,7 @@ class IosHomePage extends StatefulWidget {
 class _IosHomePageState extends State<IosHomePage> {
   late ContactProvider contactProviderW = ContactProvider();
   late ContactProvider contactProviderR = ContactProvider();
-
+  double val = 0.5;
   @override
   Widget build(BuildContext context) {
     contactProviderW = context.watch<ContactProvider>();

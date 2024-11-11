@@ -6,7 +6,6 @@ import 'package:contact_app/pages/home/provider/home_provider.dart';
 import 'package:contact_app/pages/detail/provider/detail_provider.dart';
 import 'package:contact_app/pages/contact/provier/contact_provier.dart';
 import 'package:contact_app/pages/profile/provider/profile_provider.dart';
-import 'package:contact_app/pages/favorite/provider/favorite_provider.dart';
 import 'package:contact_app/pages/bottomnavigationbar/provider/navigation_provider.dart';
 
 void main() {
@@ -27,9 +26,6 @@ void main() {
         ),
         ChangeNotifierProvider.value(
           value: DetailProvider(),
-        ),
-        ChangeNotifierProvider.value(
-          value: FavoriteProvider(),
         ),
       ],
       child: const MyApp(),

@@ -20,12 +20,20 @@ class _ProfilePageState extends State<ProfilePage> {
         backgroundColor: const Color(0xff384e78),
         foregroundColor: Colors.white,
         centerTitle: true,
-        title: const Text('Profile'),
+        title: const Text(
+          "Profile",
+          style: TextStyle(
+            fontSize: 20,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
+            const SizedBox(
+              height: 40,
+            ),
             GestureDetector(
               onTap: () async {
                 ImagePicker imagePicker = ImagePicker();

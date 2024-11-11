@@ -1,7 +1,5 @@
 import 'package:contact_app/pages/bottomnavigationbar/provider/navigation_provider.dart';
 import 'package:contact_app/pages/contact/views/contact_page.dart';
-import 'package:contact_app/pages/contact/views/ios_contact.dart';
-import 'package:contact_app/pages/favorite/favorite.dart';
 import 'package:contact_app/pages/home/view/home_page.dart';
 import 'package:contact_app/pages/profile/views/profile.dart';
 import 'package:flutter/material.dart';

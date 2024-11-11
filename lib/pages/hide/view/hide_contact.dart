@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:contact_app/pages/contact/provier/contact_provier.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:contact_app/pages/contact/provier/contact_provier.dart';
 
 class HideContact extends StatefulWidget {
   const HideContact({super.key});

@@ -43,6 +43,7 @@ class _IosAddContactState extends State<IosAddContact> {
             String phone = phoneController.text;
             String email = emailController.text;
             String? image = imagePath.toString();
+
             ContactModel contact = ContactModel(
               name: name,
               phone: phone,
@@ -54,6 +55,8 @@ class _IosAddContactState extends State<IosAddContact> {
             nameController.clear();
             phoneController.clear();
             emailController.clear();
+            image = null;
+            imagePath = null;
           },
           child: const Text(
             "Done",
